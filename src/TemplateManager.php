@@ -41,7 +41,7 @@ class TemplateManager
             $data instanceof Quote
         ) ? $data : null;
 
-        if ($quote) {
+        if (isset($quote)) {
             $site        = SiteRepository::getInstance()->getById($quote->siteId);
             $destination = DestinationRepository::getInstance()->getById($quote->destinationId);
             $user        = UserRepository::getInstance()->getById($quote->userId);
