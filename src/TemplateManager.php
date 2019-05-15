@@ -19,8 +19,6 @@ class TemplateManager
             throw new RuntimeException('no tpl given');
         }
 
-        var_dump($data);
-
         $tpl->subject = $this->computeText($tpl->subject, $data);
         $tpl->content = $this->computeText($tpl->content, $data);
 
