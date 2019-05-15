@@ -4,9 +4,7 @@ require_once __DIR__ . '/../src/autoloader.php';
 
 use Entity\Quote;
 use Entity\Template;
-use Entity\User;
 use Faker\Factory;
-
 
 $faker = Factory::create();
 
