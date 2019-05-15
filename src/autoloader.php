@@ -13,4 +13,5 @@ require_once __DIR__ . '/Repository/Repository.php';
 require_once __DIR__ . '/Repository/DestinationRepository.php';
 require_once __DIR__ . '/Repository/QuoteRepository.php';
 require_once __DIR__ . '/Repository/SiteRepository.php';
+require_once __DIR__ . '/Repository/UserRepository.php';
 require_once __DIR__ . '/TemplateManager.php';

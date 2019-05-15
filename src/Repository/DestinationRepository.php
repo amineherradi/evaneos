@@ -20,9 +20,11 @@ class DestinationRepository implements Repository
      */
     public function __construct()
     {
-        $this->country = Factory::create()->country;
-        $this->conjunction = 'en';
-        $this->computerName = Factory::create()->slug();
+        $generator = Factory::create();
+
+        $this->country      = $generator->country;
+        $this->conjunction  = $generator->countryISOAlpha3;
+        $this->computerName = $generator->slug();
     }
 
     /**

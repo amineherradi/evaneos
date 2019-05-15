@@ -4,6 +4,7 @@ require_once __DIR__ . '/../src/autoloader.php';
 
 use Entity\Quote;
 use Entity\Template;
+use Entity\User;
 use Faker\Factory;
 
 
@@ -11,32 +12,26 @@ $faker = Factory::create();
 
 $template = new Template(
     1,
-    '<h1>Votre voyage avec une agence locale [quote:destination_name]</h1>',
+    '<h1>Un super titre</h1>',
     "
-    <p>Bonjour [user:first_name],</p>
-	<p>
-	 	Merci d'avoir contacté un agent local pour votre voyage [quote:destination_name].
-		<br>Bien cordialement,
-	</p>
-	<p>
-	 	L'équipe Evaneos.com
-		<br>www.evaneos.com
-	</p>
+        [quote:destination_name]<br>
+        [user:first_name]<br>
+        [user:last_name]<br>
+		[quote:destination_link]<br>
+		[quote:summary]<br> 
+		[quote:summary_html]<br>
+		[quote:date]
 	"
 );
 
 $templateManager = new TemplateManager();
-
-$message = $templateManager->getTemplateComputed(
-    $template,
-    [
-        'quote' => new Quote(
-        	$faker->randomNumber(), 
-        	$faker->randomNumber(), 
-        	$faker->randomNumber(), 
-        	$faker->date()
-        )
-    ]
+$quote = new Quote(
+    $faker->randomNumber(),
+    $faker->randomNumber(),
+    $faker->randomNumber(),
+    $faker->randomNumber(),
+    $faker->date()
 );
+$message = $templateManager->getTemplateComputed($template, $quote);
 
 echo $message->subject . "\n" . $message->content;
