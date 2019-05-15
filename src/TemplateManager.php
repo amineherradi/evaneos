@@ -60,7 +60,7 @@ class TemplateManager
 
             if ($containsDestinationLink){
                 $content = $site->url.'/'.$destination->countryName.'/quote/'.$quote->id;
-                $text    = str_replace('[quote:destination_link]', $content, $text);
+                $text = str_replace('[quote:destination_link]', $content, $text);
             }
             if ($containsDestinationName) {
                 $text = str_replace('[quote:destination_name]', $destination->countryName, $text);

@@ -1,17 +1,12 @@
 <?php
 
-require_once __DIR__ . '/../src/Entity/Destination.php';
-require_once __DIR__ . '/../src/Entity/Quote.php';
-require_once __DIR__ . '/../src/Entity/Site.php';
-require_once __DIR__ . '/../src/Entity/Template.php';
-require_once __DIR__ . '/../src/Entity/User.php';
-require_once __DIR__ . '/../src/Helper/SingletonTrait.php';
-require_once __DIR__ . '/../src/Context/ApplicationContext.php';
-require_once __DIR__ . '/../src/Repository/Repository.php';
-require_once __DIR__ . '/../src/Repository/DestinationRepository.php';
-require_once __DIR__ . '/../src/Repository/QuoteRepository.php';
-require_once __DIR__ . '/../src/Repository/SiteRepository.php';
-require_once __DIR__ . '/../src/TemplateManager.php';
+use Entity\Quote;
+use Entity\Template;
+use Faker\Factory;
+use Repository\DestinationRepository;
+use Repository\UserRepository;
+
+require_once __DIR__ . '/../src/autoloader.php';
 
 class TemplateManagerTest extends PHPUnit_Framework_TestCase
 {
@@ -34,13 +29,11 @@ class TemplateManagerTest extends PHPUnit_Framework_TestCase
      */
     public function test()
     {
-        $faker = \Faker\Factory::create();
+        $faker = Factory::create();
 
         $expectedDestination = DestinationRepository::getInstance()->getById($faker->randomNumber());
-        $expectedUser = ApplicationContext::getInstance()->getCurrentUser();
-
-        $quote = new Quote($faker->randomNumber(), $faker->randomNumber(), $faker->randomNumber(), $faker->date());
-
+        $expectedUser = UserRepository::getInstance()->getById($faker->randomNumber());
+        $quote = new Quote($faker->randomNumber(), $faker->randomNumber(), $faker->randomNumber(), $faker->randomNumber(), $faker->date());
         $template = new Template(
             1,
             'Votre voyage avec une agence locale [quote:destination_name]',
@@ -56,12 +49,7 @@ www.evaneos.com
 ");
         $templateManager = new TemplateManager();
 
-        $message = $templateManager->getTemplateComputed(
-            $template,
-            [
-                'quote' => $quote
-            ]
-        );
+        $message = $templateManager->getTemplateComputed($template, $quote);
 
         $this->assertEquals('Votre voyage avec une agence locale ' . $expectedDestination->countryName, $message->subject);
         $this->assertEquals("
