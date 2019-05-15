@@ -1,5 +1,12 @@
 <?php
 
+namespace Repository;
+
+use Entity\Site;
+use Faker\Factory;
+use RepositoryInterface\Repository;
+use Helper\SingletonTrait;
+
 class SiteRepository implements Repository
 {
     use SingletonTrait;
@@ -13,7 +20,7 @@ class SiteRepository implements Repository
     public function __construct()
     {
         // DO NOT MODIFY THIS METHOD
-        $this->url = Faker\Factory::create()->url;
+        $this->url = Factory::create()->url;
     }
 
     /**
