@@ -46,40 +46,18 @@ class TemplateManager
         ) ? $data : null;
 
         if (isset($quote)) {
-            $containsDestinationLink = strpos($text, '[quote:destination_link]');
-            $containsDestinationName = strpos($text, '[quote:destination_name]');
-            $containsSummaryHtml     = strpos($text, '[quote:summary_html]');
-            $containsSummary         = strpos($text, '[quote:summary]');
-            $containsDate            = strpos($text, '[quote:date]');
-            $containsFirstName       = strpos($text, '[user:first_name]');
-            $containsLastName        = strpos($text, '[user:last_name]');
-
             $site        = SiteRepository::getInstance()->getById($quote->siteId);
             $destination = DestinationRepository::getInstance()->getById($quote->destinationId);
             $user        = UserRepository::getInstance()->getById($quote->userId);
 
-            if ($containsDestinationLink){
-                $content = $site->url.'/'.$destination->countryName.'/quote/'.$quote->id;
-                $text = str_replace('[quote:destination_link]', $content, $text);
-            }
-            if ($containsDestinationName) {
-                $text = str_replace('[quote:destination_name]', $destination->countryName, $text);
-            }
-            if ($containsSummaryHtml) {
-                $text = str_replace('[quote:summary_html]', Quote::renderHtml($quote), $text);
-            }
-            if ($containsSummary) {
-                $text = str_replace('[quote:summary]', Quote::renderText($quote), $text);
-            }
-            if ($containsDate) {
-                $text = str_replace('[quote:date]', $quote->dateQuoted, $text);
-            }
-            if ($containsFirstName) {
-                $text = str_replace('[user:first_name]', ucfirst(mb_strtolower($user->firstname)), $text);
-            }
-            if ($containsLastName) {
-                $text = str_replace('[user:last_name]', ucfirst(mb_strtolower($user->lastname)), $text);
-            }
+            $content = $site->url.'/'.$destination->countryName.'/quote/'.$quote->id;
+            $text = str_replace('[quote:destination_link]', $content, $text);
+            $text = str_replace('[quote:destination_name]', $destination->countryName, $text);
+            $text = str_replace('[quote:summary_html]', Quote::renderHtml($quote), $text);
+            $text = str_replace('[quote:summary]', Quote::renderText($quote), $text);
+            $text = str_replace('[quote:date]', $quote->dateQuoted, $text);
+            $text = str_replace('[user:first_name]', ucfirst(mb_strtolower($user->firstname)), $text);
+            $text = str_replace('[user:last_name]', ucfirst(mb_strtolower($user->lastname)), $text);
         }
 
         return $text;
