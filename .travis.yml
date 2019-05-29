@@ -23,4 +23,4 @@ install:
 
 script:
   - vendor/bin/phpcs --standard=PSR1,PSR2,PSR12 ../evaneos --ignore=*/vendor/*
-  - sonar-scanner -Dsonar.projectKey=amineherradi_evaneos -Dsonar.organization=amineherradi-github -Dsonar.sources=. -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=639f60607fbf5aa3cbcbeefecd9f826ee01a0388
+  - sonar-scanner
