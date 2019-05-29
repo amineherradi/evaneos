@@ -11,6 +11,13 @@ matrix:
 
 sudo: true
 
+
+addons:
+  sonarcloud:
+    organization: "amineherradi-github"
+    token:
+      secure: "f3c30b7178509b3fbb07d9e5bc716e0c244b8dd0"
+
 cache:
   directories:
     - $HOME/.composer/cache
