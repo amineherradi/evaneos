@@ -1,8 +1,26 @@
-addons:
-  sonarcloud:
-    organization: "sonarcloud_organization_key" # the key of the org you chose at step #3
-    token:
-      secure: "639f60607fbf5aa3cbcbeefecd9f826ee01a0388" # encrypted value of your token
+language: php
+
+dist: trusty
+
+matrix:
+  include:
+    - php: 7.0
+    - php: 7.1
+    - php: 7.2
+    - php: 7.3
+
+sudo: true
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+before_script:
+  - composer install --prefer-dist
+
+install:
+  - travis_retry composer update
+
 script:
-  # other script steps might be done before running the actual analysis
-  - sonar-scanner
+  - vendor/bin/phpcs --standard=PSR1,PSR2,PSR12 ../api_rest_gestion_des_entreprises --ignore=*/vendor/*
+  - sonnar-scanner
